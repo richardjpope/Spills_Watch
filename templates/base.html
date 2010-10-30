@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">	    -->
+	    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/main.css" />
+	    <title>{% block title %}{% endblock %} | The Labour Primary</title>
+	</head>
+	<body>
+	    <h1><a href="/">Spill Watch</a></h1>
+	    <p class="tagline">
+	       Incidents reported to the Coast Guard National Response Center
+	    </p>
+	    {# Header #}
+	    <div id="divHeader">
+			{# Errors #}
+	        <div id="divErrors">
+	            {% if error_messages %}
+                 <ul>
+                     {% for error in error_messages %}
+                         <li>{{ error|escape }}</li>
+                     {% endfor %}
+                 </ul>
+                 {% endif %}
+		         {% block errors %}
+            
+		         {% endblock %}		    
+		     </div>
+	    </div>
+		<div id="divPage">
+    	    {# Content #}
+    	    <div id="divContent">      
+    		    {% block content %}{% endblock %}
+    	    </div>			
+    	</div>
+    	{% block footer %}
+			<div id="divFooter">
+                Powered by <a href="http://scraperwiki.com">ScraperWiki</a>, built by <a href="http://memespring.co.uk">Richard Pope</a>.
+			</div>
+		{% endblock %}
+		
+		{# Script #}
+	    <script type="text/javascript" defer="defer">
+	        {% block run_script %}{% endblock %}
+        </script>
+	</body>
+</html>
