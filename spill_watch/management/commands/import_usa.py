@@ -36,9 +36,27 @@ class Command(BaseCommand):
                             
             #work out description
             description = item['DESCRIPTION_OF_INCIDENT'] + '\n + ' + item['ADDITIONAL_INFO']
-
+            
+            #work out the location
+            location = ''
+            if item.get('LOCATION_ADDRESS', False):
+                location = location + item['LOCATION_ADDRESS']
+            if item.get('LOCATION_COUNTY', False):
+                location = location + ' ,' + item['LOCATION_COUNTY']
+            if item.get('LOCATION_ZIP', False):
+                location = location + ' ,' + item['LOCATION_ZIP']                      
+            if item.get('LOCATION_STATE', False):
+                location = location + ' ,' + item['LOCATION_STATE']
+            
+            #latlng if present
+            lat = None
+            lng = None
+            if item.get('latlng', False):
+                lat = item['latlng'][0]
+                lng = item['latlng'][1]                
+            
             #add incident
-            incident = models.Incident(title=title, description=description, company=item_company, incident_date=item['INCIDENT_DATE_TIME'], reported_date=item['DATE_TIME_RECEIVED'], action_taken = item['DESC_REMEDIAL_ACTION'])
+            incident = models.Incident(title=title, description=description, company=item_company, incident_date=item['INCIDENT_DATE_TIME'], reported_date=item['DATE_TIME_RECEIVED'], action_taken = item['DESC_REMEDIAL_ACTION'], lat=lat, lng=lng, location=location)
             incident.save()
             
 
