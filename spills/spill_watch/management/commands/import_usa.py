@@ -27,7 +27,6 @@ class Command(BaseCommand):
                     item_company = models.Company(name=item['RESPONSIBLE_COMPANY'])
                     item_company.save()
 
-
             #work out title
             if len(item['DESCRIPTION_OF_INCIDENT'])	<= 100:
                 title = item['DESCRIPTION_OF_INCIDENT']
@@ -53,10 +52,32 @@ class Command(BaseCommand):
             lng = None
             if item.get('latlng', False):
                 lat = item['latlng'][0]
-                lng = item['latlng'][1]                
-            
+                lng = item['latlng'][1]
+
+            fatality_count =  0
+            if item.get('NUMBER_FATALITIES', 0) != '':
+                try:
+                    fatality_count = int(item.get('NUMBER_FATALITIES', 0))
+                except:
+                    pass
+
+            injury_count =  0
+            if item.get('NUMBER_INJURED', 0) != '':
+                try:
+                    injury_count = int(item.get('NUMBER_INJURED', 0))
+                except:
+                    pass
+
+
+            hospitalised_count =  0
+            if item.get('NUMBER_HOSPITALIZED', 0) != '':
+                try:
+                    hospitalised_count = int(item.get('NUMBER_HOSPITALIZED', 0))
+                except:
+                    pass
+                            
             #add incident
-            incident = models.Incident(title=title, description=description, company=item_company, incident_date=item['INCIDENT_DATE_TIME'], reported_date=item['DATE_TIME_RECEIVED'], action_taken = item['DESC_REMEDIAL_ACTION'], lat=lat, lng=lng, location=location)
+            incident = models.Incident(title=title, description=description, company=item_company, incident_date=item['INCIDENT_DATE_TIME'], reported_date=item['DATE_TIME_RECEIVED'], action_taken = item['DESC_REMEDIAL_ACTION'], lat=lat, lng=lng, location=location, fatality_count=fatality_count, injury_count=injury_count, hospitalised_count=hospitalised_count)
             incident.save()
             
 

@@ -6,7 +6,10 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 import models 
 
 def index(request):
-    return render_to_response('index.html', {}, context_instance = RequestContext(request))
+
+    top_companies = models.Company.objects.raw("select name, spill_watch_company.id, count(spill_watch_incident.id) as count from spill_watch_company inner join spill_watch_incident on spill_watch_incident.company_id = spill_watch_company.id group by company_id, name order by count DESC limit 20")    
+    
+    return render_to_response('index.html', {'top_companies': top_companies}, context_instance = RequestContext(request))
 
 def company(request, company_id):
     company = get_object_or_404(models.Company, id=company_id)    
