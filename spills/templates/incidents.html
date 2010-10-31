@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Spill Watch{% endblock %}
+{% block content %}
+    <h2>Incidents</h2>
+    <ul>
+        {% for incident in incidents.object_list %}
+            <li><a href="{% url incident incident.id %}">__{{incident.title}}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if contacts.has_previous %}
+                <a href="?page={{ incidents.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ incidents.number }} of {{ incidents.paginator.num_pages }}.
+            </span>
+
+            {% if incidents.has_next %}
+                <a href="?page={{ incidents.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+{% endblock %}

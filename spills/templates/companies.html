@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Spill Watch{% endblock %}
+{% block content %}
+    <h1>Companies</h1>
+    <ul>
+        {% for company in companies.object_list %}
+            <li><a href="{% url company company.id %}">{{company.name}}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if contacts.has_previous %}
+                <a href="?page={{ companies.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ companies.number }} of {{ companies.paginator.num_pages }}.
+            </span>
+
+            {% if contacts.has_next %}
+                <a href="?page={{ companies.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+{% endblock %}

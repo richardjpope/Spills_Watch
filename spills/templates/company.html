@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Spill Watch{% endblock %}
+{% block content %}
+<h2>{{company.name}}</h2>
+<h3>Incidents attributed to {{company.name}}:</h3>
+<ul>
+    {% for incident in company.incident_set.all %}
+        <li>
+            <h4><a href="{% url incident incident.id %}">{{incident.title}}</a></h4>
+            <p>{{incident.description}}</p>
+            <p><a href="{% url incident incident.id %}">more details ...</a></p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

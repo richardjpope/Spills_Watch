@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css">	    -->
+	    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/main.css" />
+	    <title>{% block title %}{% endblock %} | Spill Watch</title>
+	</head>
+	<body>
+	    {# menu #}
+	    <div id="divMenu">
+	        <ul>
+	           <li><a href="/">Home</a></li>
+	           <li><a href="/about/">About</a></li>	           
+	           <li><a href="http://scraperwiki.com/scrapers/us-national-response-center-incidents/">Get the data</a></li>	           	           
+	        </ul>
+	    </div>
+	    {# Header #}
+	    <div id="divHeader">
+	        <h1><a href="/"><span>Spill Watch - who's polluting where?</span></a></h1>
+	        <form class="search_form" action="/search" method="get">
+                <label for="q">Search</label><input id="q" name="q" type="text" value="{{search_term}}"/>
+                <input type="submit"value="Go"/>
+                <br/>
+                <small>e.g. <a href="/search?q=BP">BP</a> or <a href="/search?q=Exxon">Exxon</a></small>
+             </form>
+			{# Errors #}
+	        <div id="divErrors">
+	            {% if error_messages %}
+                 <ul>
+                     {% for error in error_messages %}
+                         <li>{{ error|escape }}</li>
+                     {% endfor %}
+                 </ul>
+                 {% endif %}
+		         {% block errors %}
+            
+		         {% endblock %}		    
+		     </div>
+	    </div>
+		<div id="divPage">
+    	    {# Content #}
+    	    <div id="divContent">      
+    		    {% block content %}{% endblock %}
+    	    </div>			
+    	</div>
+    	{% block footer %}
+			<div id="divFooter">
+                Powered by <a href="http://scraperwiki.com">ScraperWiki</a>, built at <a href="http://conference.journalists.org/2010conference/2010/10/30/hacks-and-hackers/">ONA10 Hacks and Hackers</a>.
+			</div>
+		{% endblock %}
+		
+		{# Script #}
+	    <script type="text/javascript" defer="defer">
+	        {% block run_script %}{% endblock %}
+        </script>
+	</body>
+</html>
