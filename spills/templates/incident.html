@@ -4,4 +4,10 @@
 <h2>__{{incident.title}}</h2>
 <h3>Company responsible: {{incident.company.name}}</h3>
 <p>{{incident.description}}</p>
+{% if incident.lat and incident.lng %}
+{{ incident.lat }},{{ incident.lng }}
+<div id="map" style="height:250px; width:250px;">
+  <img src="http://maps.google.com/staticmap?center={{ incident.lat }},-{{ incident.lng }}&maptype=roadmap&zoom=5&size=250x250&maptype=satellite&sensor=false">
+</div>
+{% endif %}
 {% endblock %}

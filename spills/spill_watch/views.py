@@ -26,6 +26,26 @@ def companies(request, page = 1):
                       
     return render_to_response('companies.html', {'companies': companies}, context_instance = RequestContext(request))
 
+def search(request):
+
+    search_term = request.GET.get('q', '').strip()
+    if search_term != '':
+        page = 1
+        companies = models.Company.objects.filter(name__contains=search_term)
+    
+        companies =  companies.order_by('name')
+        paginator = Paginator(companies, 100)
+
+        try:
+              companies = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+              companies = paginator.page(paginator.num_pages)
+    else:
+        companies = []
+          
+    return render_to_response('search.html', {'companies': companies, 'search_term': search_term}, context_instance = RequestContext(request))
+
+
 
 def incident(request, incident_id):
     incident = get_object_or_404(models.Incident, id=incident_id)

@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^incidents/(?P<incident_id>\d+)?', spill_watch_views.incident, name='incident'),    
     url(r'^incidents/?', spill_watch_views.incidents, name='incidents'),
     
-    
+    url(r'^search?', spill_watch_views.search, name='search'),    
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
