@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from spill_watch import views as spill_watch_views
 from django.core.paginator import Paginator
+import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -24,4 +25,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #(r'^admin/', include(admin.site.urls)),
+    
+        url(r'^site-media/(?P<path>.*)$',       'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes':True}),    
+        url(r'^admin-media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.ADMIN_MEDIA_ROOT, 'show_indexes':True}),        
+    
 )

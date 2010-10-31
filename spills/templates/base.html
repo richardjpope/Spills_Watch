@@ -7,12 +7,15 @@
 	    <title>{% block title %}{% endblock %} | The Labour Primary</title>
 	</head>
 	<body>
-	    <h1><a href="/">Spill Watch</a></h1>
-	    <p class="tagline">
-	       Incidents reported to the Coast Guard National Response Center
-	    </p>
 	    {# Header #}
 	    <div id="divHeader">
+	        <h1><a href="/"><span>Spill Watch - who's polluting where?</span></a></h1>
+	        <form class="search_form" action="/search" method="get">
+                <label for="q">Search</label><input id="q" name="q" type="text" value="{{search_term}}"/>
+                <input type="submit"value="Go"/>
+                <br/>
+                <small>e.g. <a href="/search?q=BP">BP</a> or <a href="/search?q=Exxon">Exxon</a></small>
+             </form>
 			{# Errors #}
 	        <div id="divErrors">
 	            {% if error_messages %}

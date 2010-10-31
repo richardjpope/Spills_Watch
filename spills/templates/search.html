@@ -1,20 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Spill Watch{% endblock %}
 {% block content %}
-<h2>Search results</h2>
-{% if companies.object_list %}
-    <h3>Companies matching <em>{{search_term}}</em>:</h3>
-{% else %}
-    <h3>No companies matching <em>{{search_term}}</em>, please try again</h3>
-{% endif %}
+<h2>
+    Search results
+    {% if companies.object_list %}
+        for '<em>{{search_term}}'</em>
+    {% else %}
+        no companies matching '<em>{{search_term}}</em>', please try again
+    {% endif %}
+</h2>
 
-<form class="search_form" action="/search" method="get">
-    <label for="q">Enter a company name</label><input id="q" name="q" type="text" value="{{search_term}}"/>
-    <input type="submit"value="Go"/>
-    <br/>
-    <small>e.g. <a href="/search?q=BP">BP</a> or <a href="/search?q=Exxon">Exxon</a></small>
- </form>
- 
 {% if search_term %}
     <ul>
         {% for company in companies.object_list %}
